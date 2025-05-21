@@ -1,37 +1,46 @@
-export const Detalles  = () => {
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+
+export const Detalles = () => {
+    const { tipo, id } = useParams();
+    const [data, setData] = useState(null);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        setLoading(true);
+        fetch(`https://www.swapi.tech/api/${tipo}/${id}`)
+            .then(res => res.json())
+            .then(result => {
+                setData(result.result.properties);
+                setLoading(false);
+            })
+            .catch(() => setLoading(false));
+    }, [tipo, id]);
+
+    if (loading) return <div className="container mt-5">Cargando...</div>;
+    if (!data) return <div className="container mt-5">No hay datos.</div>;
+
     return (
         <div>
             <div className="container mt-5">
                 <div className="card">
                     <div className="card-body text-center">
-                        <h5 className="card-title xl-2">Luke Skywalker</h5>
-                        <img src="https://via.placeholder.com/800x600" className="img-fluid" alt="Imagen de Luke Skywalker" />
+                    
+                                       <img src={`https://placehold.co/600x400/blue/white?text=${data.name}`} className="img-fluid" alt={data.name} />
                         <p className="card-text mt-3">
-                            Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi.
+                  
                         </p>
                     </div>
                 </div>
 
                 <table className="table table-bordered mt-4">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Birth Year</th>
-                            <th>Gender</th>
-                            <th>Height</th>
-                            <th>Skin Color</th>
-                            <th>Eye Color</th>
-                        </tr>
-                    </thead>
                     <tbody>
-                        <tr>
-                            <td>Luke Skywalker</td>
-                            <td>19BBY</td>
-                            <td>male</td>
-                            <td>172</td>
-                            <td>fair</td>
-                            <td>blue</td>
-                        </tr>
+                        {Object.entries(data).map(([key, value]) => (
+                            <tr key={key}>
+                                <th>{key}</th>
+                                <td>{value}</td>
+                            </tr>
+                        ))}
                     </tbody>
                 </table>
             </div>

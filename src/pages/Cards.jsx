@@ -8,7 +8,7 @@ export const Cards = () => {
     const [planetas, setPlanetas] = useState([]);
     const [vehiculos, setVehiculos] = useState([]);
 
-    // Fetch personajes con detalles
+
     useEffect(() => {
         fetch("https://www.swapi.tech/api/people")
             .then(res => res.json())
@@ -25,7 +25,7 @@ export const Cards = () => {
             .catch(err => console.error(err));
     }, []);
 
-    // Fetch planetas con detalles
+
     useEffect(() => {
         fetch("https://www.swapi.tech/api/planets")
             .then(res => res.json())
@@ -42,7 +42,7 @@ export const Cards = () => {
             .catch(err => console.error(err));
     }, []);
 
-    // Fetch vehiculos con detalles
+
     useEffect(() => {
         fetch("https://www.swapi.tech/api/vehicles")
             .then(res => res.json())
@@ -61,7 +61,12 @@ export const Cards = () => {
 
     return (
         <div>
-            <h1 className="text-left text-2xl font-bold color-red text-danger p-3">Characters</h1>
+            <h1
+                className="text-left text-2xl font-bold color-red text-danger p-3"
+                style={{ fontFamily: "Arial Black, Arial, sans-serif" }}
+            >
+                Characters
+            </h1>
             <div className="d-flex flex-wrap">
                 {personajes.map((personaje) => (
                     <Tarjetapersonajes
@@ -75,7 +80,12 @@ export const Cards = () => {
                 ))}
             </div>
 
-            <h1 className="text-left text-2xl font-bold text-danger mb-3 p-3">Planets</h1>
+            <h1
+                className="text-left text-2xl font-bold color-red text-danger p-3"
+                style={{ fontFamily: "Arial Black, Arial, sans-serif" }}
+            >
+                Planets
+            </h1>
             <div className="d-flex flex-wrap">
                 {planetas.map((planeta) => (
                     <Tarjetaplanetas
@@ -88,7 +98,12 @@ export const Cards = () => {
                 ))}
             </div>
 
-            <h1 className="text-left text-2xl font-bold text-danger mb-3 p-3">Vehicles</h1>
+           <h1
+                className="text-left text-2xl font-bold color-red text-danger p-3"
+                style={{ fontFamily: "Arial Black, Arial, sans-serif" }}
+            >
+                Vehicles
+            </h1>
             <div className="d-flex flex-wrap">
                 {vehiculos.map((vehiculo) => (
                     <Tarjetavehiculos
