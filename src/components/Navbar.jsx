@@ -3,7 +3,14 @@ import { useContext } from "react";
 import { StoreContext } from "../store";
 
 export const Navbar = () => {
-    const { state } = useContext(StoreContext);
+    const { state, dispatch } = useContext(StoreContext);
+
+    const handleRemove = (id) => {
+        dispatch({
+            type: "REMOVE_FAVORITE",
+            payload: { id }
+        });
+    };
 
     return (
         <nav className="navbar navbar-light bg-light">
@@ -22,8 +29,15 @@ export const Navbar = () => {
                                 <li><span className="dropdown-item">No favorites</span></li>
                             ) : (
                                 state.favorites.map(fav => (
-                                    <li key={fav.id}>
+                                    <li key={fav.id} className="d-flex align-items-center justify-content-between">
                                         <span className="dropdown-item">{fav.name}</span>
+                                        <button
+                                            className="btn btn-link p-0 ms-2"
+                                            onClick={() => handleRemove(fav.id)}
+                                            style={{ color: "red" }}
+                                        >
+                                            <i className="fa fa-trash float-end me-2"></i>
+                                        </button>
                                     </li>
                                 ))
                             )}

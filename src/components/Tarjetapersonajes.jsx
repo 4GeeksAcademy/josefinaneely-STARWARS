@@ -1,15 +1,17 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { StoreContext } from "../store";
 import { Link } from "react-router-dom";
 
 export const Tarjetapersonajes = ({ name, birthyear, haircolor, eyecolor, id }) => {
-    const { dispatch } = useContext(StoreContext);
+    const { dispatch, state } = useContext(StoreContext);
+    const [isFav, setIsFav] = useState(false);
 
     const handleFavorite = () => {
         dispatch({
             type: "ADD_FAVORITE",
             payload: { name, birthyear, haircolor, eyecolor, id }
         });
+        setIsFav(true);
     };
 
     return (
@@ -22,8 +24,8 @@ export const Tarjetapersonajes = ({ name, birthyear, haircolor, eyecolor, id }) 
                     <p className="card-text">{haircolor}</p>
                     <p className="card-text">{eyecolor}</p>
                     <Link to={`/detalles/people/${id}`}>Learn More</Link>
-                    <button onClick={handleFavorite} className="icon float-end">
-                        <i className="fa-solid fa-heart"></i>
+                    <button onClick={handleFavorite} className="icon float-end" style={{ background: "none", border: "none" }}>
+                        <i className="fa-solid fa-heart" style={{ color: isFav ? "red" : "gray" }}></i>
                     </button>
                 </div>
             </div>
